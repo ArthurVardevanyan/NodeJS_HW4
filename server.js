@@ -8,9 +8,24 @@ const app = Express();
 
 app.use(Express.json());
 
-const Route = require('./routes/route');
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
-app.use('/', Route);
+const port = 8000;
+const Service = require('./services/service');
+
+app.get('/', (req, res) => {
+  res.sendFile(`${__dirname}/index.html`);
+});
+
+io.on('connection', (socket) => {
+  socket.on('typingInput', async (msg) => {
+    socket.emit('typingInput', await Service.getStartsWith(msg));
+  });
+  socket.on('Input', async (msg) => {
+    socket.emit(await Service.post({ text: msg }));
+  });
+});
 
 (async () => {
   await Mongoose.connect(process.env.MONGO_DB, {
@@ -19,7 +34,7 @@ app.use('/', Route);
     useFindAndModify: false,
     useCreateIndex: true,
   });
-  app.listen(8000);
+  http.listen(port);
 })();
 
 module.exports = app;

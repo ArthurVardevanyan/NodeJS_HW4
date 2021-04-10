@@ -1,7 +1,7 @@
 const Mongoose = require('mongoose');
 
 module.exports = Mongoose.model('Autofill', new Mongoose.Schema({
-  name: { type: String, required: true },
+  text: { type: String, required: true, unique: true },
 }, {
   toJSON: {
     getters: true,
