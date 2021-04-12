@@ -18,7 +18,9 @@
   "homepage": "https://github.com/ArthurVardevanyan/NodeJS_Homework_4#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "escape-string-regexp": "^1.0.5",
     "express": "^4.17.1",
+    "mongo-sanitize": "^1.1.0",
     "mongoose": "^5.11.15",
     "socket.io": "^4.0.1"
   },

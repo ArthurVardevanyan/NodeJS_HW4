@@ -11,7 +11,7 @@ app.use(Express.json());
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const port = 8000;
+const port = 8080;
 const Service = require('./services/service');
 
 app.get('/', (req, res) => {
