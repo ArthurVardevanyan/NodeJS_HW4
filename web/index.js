@@ -12,14 +12,18 @@ const sanitizeHTML = (str) => {
   return temp.innerHTML;
 };
 
+function clearList() {
+  while (messages.firstChild) {
+    messages.removeChild(messages.firstChild);
+  }
+}
+
 $(this).bind('keyup', (event) => {
   if (event.keyCode === 46 || event.keyCode === 8) {
     if (input.value) {
       socket.emit('typingInput', input.value);
     } else {
-      while (messages.firstChild) {
-        messages.removeChild(messages.firstChild);
-      }
+      clearList();
     }
   }
 });
@@ -31,23 +35,29 @@ $(document).keyup('keypress', () => {
 });
 
 form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (input.value) {
-    socket.emit('Input', input.value);
-    input.value = '';
-    while (messages.firstChild) {
-      messages.removeChild(messages.firstChild);
+  if ('clear'.localeCompare(e.submitter.id) === 0) {
+    socket.emit('clear');
+    clearList();
+  } else if ('del'.localeCompare(e.submitter.id) === 0) {
+    socket.emit('del', input.value);
+    clearList();
+  } else {
+    e.preventDefault();
+    if (input.value) {
+      socket.emit('Input', input.value);
+      input.value = '';
+      while (messages.firstChild) {
+        messages.removeChild(messages.firstChild);
+      }
     }
   }
 });
 
 socket.on('typingInput', (msg) => {
-  while (messages.firstChild) {
-    messages.removeChild(messages.firstChild);
-  }
+  clearList();
   msg.forEach((element) => {
     const item = document.createElement('li');
-    item.textContent = sanitizeHTML(element.text);
+    item.textContent = sanitizeHTML(element.Name);
     messages.appendChild(item);
   });
   window.scrollTo(0, document.body.scrollHeight);
