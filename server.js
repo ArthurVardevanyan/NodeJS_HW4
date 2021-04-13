@@ -15,7 +15,7 @@ const xss = require('xss');
 const port = 8080;
 const Service = require('./services/service');
 
-app.use(Express.static(`${__dirname}/web`));
+app.use(Express.static(`${__dirname}/public`));
 
 io.on('connection', (socket) => {
   socket.on('typingInput', async (inputString) => {
