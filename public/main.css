@@ -1,23 +1,36 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300,100italic,100);
+
+
+h1 {
+    margin: 25px auto;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-family: Roboto;
+    font-size: 50px;
+}
+
+html,
 body {
+    min-width: 100%;
     margin: 0;
-    padding-top: 3rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 #form {
     background: rgba(0, 0, 0, 0.15);
-    padding: 0.25rem;
-    position: fixed;
+    padding: 0.5rem;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
     display: flex;
-    height: 3rem;
+    height: 5rem;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
 }
 
 #input {
+    font-family: Roboto;
+    font-size: larger;
     border: none;
     padding: 0 1rem;
     flex-grow: 1;
@@ -26,14 +39,17 @@ body {
 }
 
 #input:focus {
+    font-family: Roboto;
     outline: none;
 }
 
 #form>button {
+    font-family: Roboto;
+    font-size: larger;
     background: #333;
     border: none;
     padding: 0 1rem;
-    margin: 0.25rem;
+    margin: 0.5rem;
     border-radius: 3px;
     outline: none;
     color: #fff;
@@ -46,9 +62,56 @@ body {
 }
 
 #messages>li {
+    font-family: Roboto;
+    font-size: larger;
     padding: 0.5rem 1rem;
+
 }
 
-#messages>li:nth-child(odd) {
-    background: #efefef;
+#messages>li:nth-child(even) {
+    background: #e6e6e6;
+}
+
+#wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    width: auto;
+    min-width: 100%;
+
+}
+
+#inner1 {
+    background: #e9e9e9;
+    float: left;
+    min-width: 100%;
+
+}
+
+#inner2 {
+    float: left;
+    clear: left;
+    min-width: 100%;
+
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    #input,
+    #messages,
+    #form,
+    #form>button {
+        font-size: medium;
+    }
+}
+
+@media only screen and (max-width: 587px) {
+
+    #input,
+    #messages,
+    #form,
+    #form>button {
+        font-size: small;
+    }
 }
