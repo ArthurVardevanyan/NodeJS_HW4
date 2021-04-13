@@ -10,20 +10,32 @@ app.use(Express.json());
 
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const xss = require('xss');
 
 const port = 8080;
 const Service = require('./services/service');
 
-app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/index.html`);
-});
+app.use(Express.static(`${__dirname}/web`));
 
 io.on('connection', (socket) => {
   socket.on('typingInput', async (msg) => {
-    socket.emit('typingInput', await Service.getStartsWith(msg));
+    const searchStrings = await Service.getStartsWith(msg);
+    const sanitizedSearchStrings = [];
+    searchStrings.forEach((str) => {
+      sanitizedSearchStrings.push({ text: xss(str.text) });
+    });
+    socket.emit('typingInput', sanitizedSearchStrings);
   });
   socket.on('Input', async (msg) => {
-    socket.emit(await Service.post({ text: msg }));
+    let input = '';
+    try {
+      input = await Service.post({ text: xss(msg) });
+    } catch (e) {
+      if (e.code !== 11000) {
+        throw e;
+      }
+    }
+    socket.emit(input);
   });
 });
 
