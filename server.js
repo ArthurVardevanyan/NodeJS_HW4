@@ -21,7 +21,7 @@ app.use(Express.static(`${__dirname}/public`));
     useFindAndModify: false,
     useCreateIndex: true,
   });
-  http.listen(8080);
+  http.listen(process.env.PORT);
 })();
 
 module.exports = app;

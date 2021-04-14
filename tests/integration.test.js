@@ -1,3 +1,5 @@
+// http://liamkaufman.com/blog/2012/01/28/testing-socketio-with-mocha-should-and-socketio-client/
+// https://jasminexie.github.io/testing-socket-io-server-nodejs-with-mocha/
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 

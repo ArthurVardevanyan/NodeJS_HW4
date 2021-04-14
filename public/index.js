@@ -35,22 +35,20 @@ $(document).keyup('keypress', () => {
 });
 
 form.addEventListener('submit', (e) => {
+  e.preventDefault();
   if ('clear'.localeCompare(e.submitter.id) === 0) {
     socket.emit('clear');
     clearList();
   } else if ('del'.localeCompare(e.submitter.id) === 0) {
     socket.emit('del', input.value);
     clearList();
-  } else {
-    e.preventDefault();
-    if (input.value) {
-      socket.emit('Input', input.value);
-      input.value = '';
-      while (messages.firstChild) {
-        messages.removeChild(messages.firstChild);
-      }
+  } else if (input.value) {
+    socket.emit('Input', input.value);
+    while (messages.firstChild) {
+      messages.removeChild(messages.firstChild);
     }
   }
+  input.value = '';
 });
 
 socket.on('typingInput', (msg) => {
@@ -60,5 +58,4 @@ socket.on('typingInput', (msg) => {
     item.textContent = sanitizeHTML(element.Name);
     messages.appendChild(item);
   });
-  window.scrollTo(0, document.body.scrollHeight);
 });
