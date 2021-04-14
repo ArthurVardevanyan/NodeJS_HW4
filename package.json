@@ -38,6 +38,7 @@
     "mocha": "^8.3.0",
     "mongodb-memory-server": "^6.9.3",
     "nyc": "^15.1.0",
-    "sinon": "^9.2.4"
+    "sinon": "^9.2.4",
+    "socket.io-client": "^4.0.1"
   }
 }

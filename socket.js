@@ -18,34 +18,19 @@ module.exports = (io) => {
       try {
         input = await Service.post({ Name: xss(inputString) });
       } catch (e) {
-        if (e.code !== 11000) {
-          throw e;
+        if (e.code === 11000) {
+          input.Name = null;
         }
       }
-      socket.emit(input);
+      socket.emit('Input', input.Name);
     });
 
     socket.on('clear', async () => {
-      let input = '';
-      try {
-        input = await Service.deleteAll();
-      } catch (e) {
-        if (e.code !== 11000) {
-          throw e;
-        }
-      }
-      socket.emit(input);
+      socket.emit('clear', await Service.deleteAll());
     });
+
     socket.on('del', async (inputString) => {
-      let input = '';
-      try {
-        input = await Service.deleteString(xss(inputString));
-      } catch (e) {
-        if (e.code !== 11000) {
-          throw e;
-        }
-      }
-      socket.emit(input);
+      socket.emit('del', await Service.deleteString(xss(inputString)));
     });
   });
 };
