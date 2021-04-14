@@ -8,12 +8,14 @@ const Service = require('../services/service');
 
 const mockDB = require('./mockDB.test');
 
+const app = require('../server');
+
 before(async () => mockDB.connect());
 
-describe('GET Empty Database', () => {
-  it('should return status nothing', async () => {
-    const output = await Service.getAll();
-    expect(output).to.deep.equal([]);
+describe('GET /', () => {
+  it('should return status 200', async () => {
+    const res = await chai.request(app).get('/').send();
+    expect(res.status).to.equal(200);
   });
 });
 
@@ -26,7 +28,7 @@ describe('Delete Empty Database', () => {
 
 describe('Add test to DB', () => {
   it('should return test', async () => {
-    const output = (await Service.post({ Name: 'test' })).Name;
+    const output = (await Service.post('test')).Name;
     expect(output).to.equal('test');
   });
 });

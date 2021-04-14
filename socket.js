@@ -14,14 +14,10 @@ module.exports = (io) => {
     });
 
     socket.on('Input', async (inputString) => {
-      let input = '';
-      try {
-        input = await Service.post({ Name: xss(inputString) });
-      } catch (e) {
-        if (e.code === 11000) {
-          input.Name = null;
-        }
-      }
+      let input = null;
+      const duplicate = await Service.deleteString(xss(inputString));
+      input = await Service.post(xss(inputString));
+      if (duplicate !== 0) { socket.emit('Input', null); }
       socket.emit('Input', input.Name);
     });
 
