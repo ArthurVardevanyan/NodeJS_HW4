@@ -1,34 +1,33 @@
-const io = require('socket.io-client');
-
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
 const { expect } = chai;
 chai.use(chaiHttp);
 
-const app = require('../server');
+const app = require('express')();
+const server = require('http').Server(app);
+const io = require('socket.io-client');
+const ioServer = require('socket.io')(server, {
+  cookie: false,
+  pingTimeout: 30000,
+  pingInterval: 2000,
+});
 
 const mockDB = require('./mockDB.test');
 
 before(async () => mockDB.connect());
 
-const Model = require('../models/model');
+const Port = 8080;
+const socketURL = `http://localhost:${Port}`;
+const socket = require('../socket');
 
-Model.createIndexes();
-
-const socketURL = 'http://localhost:8080';
+socket(ioServer);
+server.listen(Port);
 
 const options = {
   transports: ['websocket'],
   'force new connection': true,
 };
-
-describe('GET /', () => {
-  it('should return status 200', async () => {
-    const res = await chai.request(app).get('/').send();
-    expect(res.status).to.equal(200);
-  });
-});
 
 describe('Input test into DB', () => {
   it('should Echo Input', (done) => {

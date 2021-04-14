@@ -8,16 +8,7 @@ const Service = require('../services/service');
 
 const mockDB = require('./mockDB.test');
 
-const app = require('../server');
-
 before(async () => mockDB.connect());
-
-describe('GET /', () => {
-  it('should return status 200', async () => {
-    const res = await chai.request(app).get('/').send();
-    expect(res.status).to.equal(200);
-  });
-});
 
 describe('Delete Empty Database', () => {
   it('should return 0', async () => {
