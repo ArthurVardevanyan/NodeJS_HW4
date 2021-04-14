@@ -51,9 +51,9 @@ form.addEventListener('submit', (e) => {
   input.value = '';
 });
 
-socket.on('typingInput', (msg) => {
+socket.on('typingInput', (str) => {
   clearList();
-  msg.forEach((element) => {
+  str.forEach((element) => {
     const item = document.createElement('li');
     item.textContent = sanitizeHTML(element.Name);
     messages.appendChild(item);

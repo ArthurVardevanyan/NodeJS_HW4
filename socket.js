@@ -16,7 +16,7 @@ module.exports = (io) => {
     socket.on('Input', async (inputString) => {
       let input = null;
       const duplicate = await Service.deleteString(xss(inputString));
-      input = await Service.post(xss(inputString));
+      input = await Service.submit(xss(inputString));
       if (duplicate !== 0) { socket.emit('Input', null); }
       socket.emit('Input', input.Name);
     });

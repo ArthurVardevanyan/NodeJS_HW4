@@ -19,7 +19,7 @@ describe('Delete Empty Database', () => {
 
 describe('Add test to DB', () => {
   it('should return test', async () => {
-    const output = (await Service.post('test')).Name;
+    const output = (await Service.submit('test')).Name;
     expect(output).to.equal('test');
   });
 });
