@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "npm run lint && npm run test:unit && npm run test:integration",
-    "test:unit": "nyc mocha './tests/unit.test.js' --exit",
-    "test:integration": "nyc mocha './tests/integration.test.js' --exit",
+    "test:unit": "nyc --reporter=lcov --reporter=html --reporter=text mocha './tests/unit.test.js' --exit",
+    "test:integration": "nyc --reporter=lcov --reporter=html --reporter=text mocha './tests/integration.test.js' --exit",
     "lint": "./node_modules/.bin/eslint '**/*.js' --ext .js --fix"
   },
   "repository": {
