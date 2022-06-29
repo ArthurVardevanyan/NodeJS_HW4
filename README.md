@@ -1,4 +1,4 @@
-# NodeJS_Homework_4 ![Actions Status](https://github.com/ArthurVardevanyan/NodeJS_Homework_4/workflows/nodeJS/badge.svg)![Actions Status](https://github.com/ArthurVardevanyan/NodeJS_Homework_4/workflows/CodeQL/badge.svg)[![Coverage Status](https://coveralls.io/repos/github/ArthurVardevanyan/NodeJS_Homework_4/badge.svg?branch=master)](https://coveralls.io/github/ArthurVardevanyan/NodeJS_Homework_4?branch=master)
+# node_socket_autofill ![Actions Status](https://github.com/ArthurVardevanyan/node_socket_autofill/workflows/nodeJS/badge.svg)![Actions Status](https://github.com/ArthurVardevanyan/node_socket_autofill/workflows/CodeQL/badge.svg)[![Coverage Status](https://coveralls.io/repos/github/ArthurVardevanyan/node_socket_autofill/badge.svg?branch=master)](https://coveralls.io/github/ArthurVardevanyan/node_socket_autofill?branch=master)
 
 Build a functioning "auto-complete" application that suggests entities to a user that currently exist in a database, while the user is typing a new entry to potentially store in that database.
 
