@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: socket-autofill
+  namespace: socket-autofill
+  labels:
+    app: socket-autofill
+    app.kubernetes.io/instance: socket-autofill
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: socket-autofill
+  template:
+    metadata:
+      labels:
+        app: socket-autofill
+      annotations:
+        enable.version-checker.io/socket-autofill: "false"
+        seccomp.security.alpha.kubernetes.io/defaultProfileName: "runtime/default"
+    spec:
+      hostname: socket-autofill
+      restartPolicy: Always
+      # securityContext:
+      # runAsUser: 10033
+      # runAsGroup: 30000
+      # fsGroup: 20000
+      automountServiceAccountToken: false
+      containers:
+        - securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            # runAsUser: 10033
+            capabilities:
+              drop:
+                - all
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 60
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 60
+            successThreshold: 1
+            failureThreshold: 3
+          image: registry.<path:secret/data/homelab/domain#url>/apps/socket-autofill:<VERSION>
+          imagePullPolicy: IfNotPresent
+          name: socket-autofill
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 50m
+              memory: 100Mi
+            requests:
+              cpu: 25m
+              memory: 50Mi
+          env:
+            - name: PORT
+              value: "8080"
+            - name: MONGODB
+              valueFrom:
+                secretKeyRef:
+                  key: MONGODB
+                  name: env

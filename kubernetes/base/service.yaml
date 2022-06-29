@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: socket-autofill
+  name: socket-autofill
+  labels:
+    app.kubernetes.io/instance: socket-autofill
+spec:
+  ports:
+    - protocol: TCP
+      name: web
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: socket-autofill

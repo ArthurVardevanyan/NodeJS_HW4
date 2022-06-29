@@ -1,0 +1,6 @@
+*.yml linguist-detectable=true
+*.yml linguist-language=YAML
+*.yaml linguist-detectable=true
+*.yaml linguist-language=YAML
+containerfile linguist-detectable=true
+containerfile linguist-language=Dockerfile

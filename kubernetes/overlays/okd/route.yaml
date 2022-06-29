@@ -1,0 +1,17 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: socket-autofill
+  namespace: socket-autofill
+  labels:
+    app: socket-autofill
+    app.kubernetes.io/instance: socket-autofill
+spec:
+  host: autofill.apps.okd.<path:secret/data/homelab/domain#url>
+  to:
+    kind: Service
+    name: socket-autofill
+    weight: 100
+  port:
+    targetPort: 8080
+  wildcardPolicy: None

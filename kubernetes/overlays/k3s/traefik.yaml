@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: socket-autofill
+  namespace: socket-autofill
+  labels:
+    app.kubernetes.io/instance: socket-autofill
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: "Host(`autofill.k3s.<path:secret/data/homelab/domain#url>`)"
+      kind: Rule
+      services:
+        - name: socket-autofill
+          port: 8080
