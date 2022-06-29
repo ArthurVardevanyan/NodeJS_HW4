@@ -1,7 +1,7 @@
-FROM node:16
+FROM registry.access.redhat.com/ubi9/nodejs-16:1-44
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /opt/app-root/src
 
 COPY package*.json ./
 
